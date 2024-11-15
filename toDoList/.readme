@@ -1,0 +1,21 @@
+here when i do on click 
+
+the new div i.e. toDoLists... wher all the lists are stored.....
+
+A new Li tag is inserted i.e how stored
+
+first we create li elemet 
+const listitem = Document.createElement("li")
+listItem.innerText("Value")
+
+toDoLists.appendChild(listItem)
+
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Local Storage::
+ 
+ * it only stores in form of key and pair values that to in string...
+ * it has setItems,getItems,clear methods
+ * 
