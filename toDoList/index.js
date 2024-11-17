@@ -1,47 +1,34 @@
-var toDoLists = document.querySelector(".lists")
-var toDoList = document.querySelector(".inputItem")
+const inputValue = document.querySelector(".inputListValue");
+const listElement = document.querySelector(".listValues");
+inputValue.focus()
 
-var toDoListItems = []
+var toDoListItems = [];
+const getLocalStorage = ()=>{
+    return JSON.parse(window.localStorage.getItem("key"))
+}
 const addToLocalStorage = (value)=>{
-  return  localStorage.setItem("key",JSON.stringify(value))
-}
-const getToDoListItems = ()=>{
-   return JSON.parse(localStorage.getItem("key")) || []
-}
-console.log(getToDoListItems())
-
-
-const showToDoList = ()=>{
-    toDoListItems= getToDoListItems()
-    if(toDoListItems.length!==0){
-        var para = document.createElement("p")
-        para.innerText = "Previous search"
-        toDoLists.appendChild(para)
-        toDoListItems.map((item)=>{
-          var liElement = document.createElement("li");
-          liElement.innerText = item;
-          toDoLists.appendChild(liElement);
-        })
-    }
+    return window.localStorage.setItem("key",JSON.stringify(value));
 }
 
-const handleClick= ()=>{
-    console.log("click event is trigreed")
-    let inputValue = toDoList.value.trim()
-    toDoListItems= getToDoListItems()
-    
-    if(inputValue, !toDoListItems.includes(inputValue)){
-        toDoListItems.unshift(inputValue)
-        addToLocalStorage(toDoListItems)
+const handleClick = ()=>{
+    console.log(inputValue.value)
+    toDoListItems= getLocalStorage()
+    if(inputValue.value && !toDoListItems.includes(inputValue.value) ){
+        toDoListItems.push(inputValue.value);
+        addToLocalStorage(toDoListItems);
+        const liElement = document.createElement("li");
+        liElement.innerText = inputValue.value.toUpperCase();
         
-        let liElement = document.createElement("li")
-        liElement.innerText = inputValue
-        toDoLists.appendChild(liElement)
-        
+        listElement.appendChild(liElement);
+        inputValue.value ="";
+        alert("item added")
+        inputValue.focus();
+    }else{
+        alert(`input field is  empty or item already existed`)
+        inputValue.value=""
+        inputValue.focus()
     }
-    toDoList.value=""
 }
 document.querySelector(".btn").addEventListener("click",()=>{
     handleClick()
 })
-showToDoList()
